@@ -1,0 +1,78 @@
+// Dark Mode
+
+.dark {
+  background: $dark;
+
+  .header {
+    background: $light-dark;
+    &__dark-switcher {
+      color: #fff;
+    }
+    &__link {
+      color: #fff;
+      &.router-link-active::after {
+        background-color: #fff;
+        opacity: 0.3;
+      }
+    }
+
+    &__title {
+      color: #fff;
+    }
+  }
+
+  .main {
+    &__control-group {
+      background-color: $light-dark;
+      color: #fff;
+    }
+    &__control-input {
+      background-color: $light-dark;
+      color: #fff;
+    }
+    &__control-append-icon {
+      color: #fff;
+    }
+
+    .filter__modal {
+      background-color: $light-dark;
+      &-item:hover {
+        background-color: #fff;
+        color: $black;
+      }
+    }
+  }
+  .country-item {
+    &__card {
+      background-color: $light-dark;
+    }
+    &__card-img-wrapper {
+      background-color: $dark;
+    }
+    &__card-content {
+      color: #fff;
+    }
+  }
+
+  .country-page {
+    &__content {
+      color: #fff;
+    }
+    &__stats {
+      &__borders-pills {
+        .pill {
+          color: #fff;
+          background-color: $light-dark;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background: $dark;
+    color: $light-gray;
+    a {
+      color: $light-gray;
+    }
+  }
+}
