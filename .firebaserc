@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "nampil-studio"
+  },
+  "targets": {
+    "nampil-studio": {
+      "hosting": {
+        "wiw": [
+          "whereintheworld-nampil"
+        ]
+      }
+    }
+  }
+}
