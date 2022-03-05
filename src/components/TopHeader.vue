@@ -6,11 +6,11 @@
 
         <div class="header-links">
           <router-link class="header__link" to="/">
-            <House class="header__icon" /> Home
+            <house class="header__icon" /> Home
           </router-link>
           <button class="header__dark-switcher" @click="switchMode">
-            <LunaDark v-if="!darkMode" class="header__icon"></LunaDark>
-            <LunaLight v-else class="header__icon"></LunaLight>
+            <luna-dark v-if="!darkMode" class="header__icon" />
+            <luna-light v-else class="header__icon" />
 
             {{ darkMode ? 'Light' : 'Dark' }} mode
           </button>
