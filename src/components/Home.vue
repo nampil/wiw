@@ -16,6 +16,7 @@
             filterText || 'Filter by Region'
           }}</span>
           <button
+            id="dropdown"
             class="main__control-append-icon"
             @click.stop="toggleShowFilter"
           >
