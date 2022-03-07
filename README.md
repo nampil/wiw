@@ -33,7 +33,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [whereintheworld-nampil](whereintheworld-nampil.nampilstudio.com)
+- Live Site URL: [whereintheworld-nampil](https://whereintheworld-nampil.nampilstudio.com)
 
 ## My process
 
