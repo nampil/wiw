@@ -17,7 +17,6 @@
           }}</span>
           <button
             class="main__control-append-icon"
-            role="button"
             @click.stop="toggleShowFilter"
           >
             <ChevronDown />
@@ -45,13 +44,27 @@
       </div>
 
       <div class="main__grid">
-        <transition-group name="list" tag="ul" class="main__grid--countries">
+        <div
+          v-if="searchText && !countriesFiltered.length"
+          class="main__grid--no-results"
+        >
+          No country found!
+        </div>
+
+        <transition-group
+          v-else
+          name="list"
+          tag="ul"
+          class="main__grid--countries"
+        >
           <li
             v-for="country in countriesFiltered"
             :key="country"
             class="countries-item"
           >
-            <router-link :to="`/${country.name.toLowerCase()}`">
+            <router-link
+              :to="`/${encodeURIComponent(country.name.toLowerCase())}`"
+            >
               <country-item :country="country" />
             </router-link>
           </li>

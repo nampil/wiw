@@ -9,7 +9,7 @@
     </div>
 
     <div class="country-item__card-content">
-      <h4 class="country-item__card-title">{{ country.name }}</h4>
+      <h2 class="country-item__card-title">{{ country.name }}</h2>
       <ul class="country-item__card-stats">
         <li><strong>Population:</strong> {{ country.population }}</li>
         <li><strong>Region:</strong> {{ country.region }}</li>

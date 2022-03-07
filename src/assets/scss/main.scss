@@ -170,12 +170,18 @@ a {
     font-size: inherit;
     flex: 1 0 auto;
   }
-  &__grid--countries {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
-    gap: 2.5rem;
+  &__grid {
+    &--countries {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
+      gap: 2.5rem;
+    }
+    &--no-results {
+      font-size: 1.5rem;
+      color: $black;
+    }
   }
 }
 
@@ -264,6 +270,7 @@ a {
     padding: 1rem 2rem;
   }
   &__card-title {
+    font-size: 1.125rem;
   }
   &__card-stats {
     list-style: none;

@@ -11,7 +11,7 @@
           <img :src="countryData.flags.svg" alt="" />
         </div>
         <div class="country-page__content">
-          <h4 class="country-page__title">{{ countryData.name }}</h4>
+          <h2 class="country-page__title">{{ countryData.name }}</h2>
           <div class="country-page__info">
             <div class="country-page__stats left">
               <ul>
