@@ -152,12 +152,16 @@ a {
       max-width: 1rem;
     }
   }
-  &__control-append-icon {
+  &__control-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
     background: none;
+    width: 100%;
     border: none;
     cursor: pointer;
-    color: $light-gray;
-    margin: 0.3rem 0.5rem 0 0.3rem;
+    color: $light;
+
     svg {
       max-width: 1rem;
     }
@@ -203,7 +207,7 @@ a {
   &-item {
     padding: 1rem;
     transition: all 200ms ease-out;
-
+    cursor: pointer;
     &:hover,
     &:active {
       background-color: $light-dark;

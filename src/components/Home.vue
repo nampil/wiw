@@ -12,14 +12,15 @@
           />
         </div>
         <div class="main__control-group filter">
-          <span class="main__control-label">{{
-            filterText || 'Filter by Region'
-          }}</span>
           <button
             id="dropdown"
-            class="main__control-append-icon"
+            class="main__control-btn"
             @click.stop="toggleShowFilter"
           >
+            <span class="main__control-label">{{
+              filterText || 'Filter by Region'
+            }}</span>
+
             <ChevronDown />
           </button>
           <transition name="drop-down">
@@ -74,103 +75,98 @@
     </div>
   </main>
 </template>
-<script>
-  export default {
-    name: 'Home',
-  }
-</script>
 
 <script setup>
-  import Magnify from '../assets/icons/Magnify.vue'
-  import ChevronDown from '../assets/icons/ChevronDown.vue'
-  import CountryItem from './CountryItem.vue'
-  import {
-    onBeforeMount,
-    ref,
-    computed,
-    onMounted,
-    onBeforeUnmount,
-    nextTick,
-  } from 'vue'
+import Magnify from '../assets/icons/Magnify.vue'
+import ChevronDown from '../assets/icons/ChevronDown.vue'
+import CountryItem from './CountryItem.vue'
+import {
+  onBeforeMount,
+  ref,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+} from 'vue'
 
-  const countries = ref([])
-  const searchText = ref('')
-  const filterText = ref('')
-  const showFilterModal = ref(false)
-  const filterModal = ref(null)
+const countries = ref([])
+const searchText = ref('')
+const filterText = ref('')
+const showFilterModal = ref(false)
+const filterModal = ref(null)
 
-  const countriesRegionList = computed(() => {
-    const regionNames = [
-      ...new Set(countries.value.map((country) => country.region)),
-    ].sort()
+const countriesRegionList = computed(() => {
+  const regionNames = [
+    ...new Set(countries.value.map((country) => country.region)),
+  ].sort()
 
-    const regionesObjs = regionNames.map((region) => {
-      return {
-        name: region,
-        value: region,
-      }
-    })
-    regionesObjs.unshift({
-      name: 'All',
-      value: '',
-    })
-    return regionesObjs
+  const regionesObjs = regionNames.map((region) => {
+    return {
+      name: region,
+      value: region,
+    }
   })
+  regionesObjs.unshift({
+    name: 'All',
+    value: '',
+  })
+  return regionesObjs
+})
 
-  const countriesFiltered = computed(() => {
-    const noSpaces = searchText.value.trim().toLowerCase()
-    const text = noSpaces.charAt(0).toUpperCase() + noSpaces.substring(1)
-    const _countries = countries.value.map((c) => c)
-    const filter = filterText.value
-    const filteredCountries = _countries.filter((country) =>
-      country.region.match(filter)
+const countriesFiltered = computed(() => {
+  const noSpaces = searchText.value.trim().toLowerCase()
+  const text = noSpaces.charAt(0).toUpperCase() + noSpaces.substring(1)
+  const _countries = countries.value.map((c) => c)
+  const filter = filterText.value
+  const filteredCountries = _countries.filter((country) =>
+    country.region.match(filter)
+  )
+
+  return filteredCountries.filter((country) => country.name.match(text))
+})
+
+const toggleShowFilter = () => {
+  showFilterModal.value = !showFilterModal.value
+  if (showFilterModal.value) {
+    nextTick(() => {
+      const item = filterModal.value.querySelector('.filter__modal-item')
+      item.focus()
+    })
+  }
+}
+
+const handleSelectFilter = (filter) => {
+  toggleShowFilter()
+  filterText.value = filter
+}
+
+const handleClickOutside = (e) => {
+  const modal = document.getElementById('filter-modal')
+  if (
+    e.target.matches('.main__control-append-icon') ||
+    !e.target.closest('#filter-modal')
+  ) {
+    showFilterModal.value = false
+  }
+}
+
+onBeforeMount(async () => {
+  if (!countries.value.length) {
+    const res = await fetch(
+      'https://restcountries.com/v2/all?fields=name,capital,region,flags,population'
     )
 
-    return filteredCountries.filter((country) => country.name.match(text))
-  })
+    const data = await res.json()
 
-  const toggleShowFilter = () => {
-    showFilterModal.value = !showFilterModal.value
-    if (showFilterModal.value) {
-      nextTick(() => {
-        const item = filterModal.value.querySelector('.filter__modal-item')
-        item.focus()
-      })
-    }
+    countries.value = data
   }
-
-  const handleSelectFilter = (filter) => {
-    toggleShowFilter()
-    filterText.value = filter
-  }
-
-  const handleClickOutside = (e) => {
-    const modal = document.getElementById('filter-modal')
-    if (
-      e.target.matches('.main__control-append-icon') ||
-      !e.target.closest('#filter-modal')
-    ) {
-      showFilterModal.value = false
-    }
-  }
-
-  onBeforeMount(async () => {
-    if (!countries.value.length) {
-      const res = await fetch(
-        'https://restcountries.com/v2/all?fields=name,capital,region,flags,population'
-      )
-
-      const data = await res.json()
-
-      countries.value = data
-    }
-  })
-  onMounted(() => {
-    document.addEventListener('click', handleClickOutside)
-  })
-  onBeforeUnmount(() => {
-    document.removeEventListener('click', handleClickOutside)
-  })
+})
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style lang="scss" scoped></style>
